@@ -1,0 +1,12 @@
+{application, caapp,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { caapp_app, []}},
+  {env, []}
+ ]}.
