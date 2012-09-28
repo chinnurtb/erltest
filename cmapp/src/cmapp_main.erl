@@ -3,7 +3,7 @@
 
 -behaviour(gen_server).
 
--export([start_link/1, stop/0]).
+-export([start_link/0, stop/0]).
 -export([user_add/2, user_del/1, user_get/1]).
 -export([agent_get/0]).
 -export([init/1, handle_call/3]).
@@ -15,9 +15,9 @@
 %export client functions
 %operation & maintenace api
 
-start_link(Filename) ->
-	io:format('filename is ~p ~n.', [Filename]),
-	gen_server:start_link({local, ?MODULE}, ?MODULE, Filename, []).
+start_link() ->
+	io:format('filename is ~p ~n.', [filename]),
+	gen_server:start_link({local, ?MODULE}, ?MODULE, filename, []).
 
 stop() ->
 	gen_server:cast(?MODULE, stop).

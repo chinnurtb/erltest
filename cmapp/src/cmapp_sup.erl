@@ -10,7 +10,7 @@
 -export([init/1]).
 
 %% Helper macro for declaring children of supervisor
--define(CHILD(I, Type), {I, {I, start_link, [filename_test]}, permanent, 5000, Type, [I]}).
+-define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
 
 %% ===================================================================
 %% API functions
@@ -24,5 +24,8 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-	{ok, { {one_for_one, 5, 10}, [?CHILD(cmapp_main, worker)]} }.
-
+	Procs = [
+		{cmapp_main, {cmapp_main, start_link, []}, permanent, 5000, worker, [cmapp_main]},
+		{mywebdemo, {mywebdemo, start, []}, permanent, 5000, worker, [mywebdemo]}
+	],
+	{ok, { {one_for_one, 5, 10}, Procs} }.
